@@ -76,11 +76,19 @@ This reports the state of the installation and the game's entitlements. Run it w
 
 ## Uninstall
 
+From a checkout:
+
 ```sh
 sh precise-sleep-uninstall.sh
 ```
 
-or just delete `~/.precise-sleep`. Either way, clear the Launch Options field in Steam afterwards. The game is back to stock, since nothing was ever placed inside its folder.
+If you installed with the `curl` one-liner and have no checkout:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/ak1h3ro/precise-sleep-mac/main/precise-sleep-uninstall.sh | sh
+```
+
+It removes `~/.precise-sleep` and reminds you to clear the Launch Options field in Steam, which is the one step it cannot do for you. The game is back to stock, since nothing was ever placed inside its folder.
 
 ## How it works
 

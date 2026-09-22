@@ -8,6 +8,7 @@ set -eu
 REPO="ak1h3ro/precise-sleep-mac"
 RAW_BASE="https://raw.githubusercontent.com/$REPO/main/dist"
 RAW_SELF="https://raw.githubusercontent.com/$REPO/main/precise-sleep-install.sh"
+RAW_UNINSTALL="https://raw.githubusercontent.com/$REPO/main/precise-sleep-uninstall.sh"
 INSTALL_DIR="$HOME/.precise-sleep"
 DST_APP="$HOME/Library/Application Support/Steam/steamapps/common/Don't Starve Together/dontstarve_steam.app"
 HERE="$(cd "$(dirname "$0")" 2>/dev/null && pwd || echo "")"
@@ -103,5 +104,5 @@ if [ -n "$HERE" ] && [ -f "$HERE/precise-sleep-install.sh" ]; then
     echo "  Remove with:           sh precise-sleep-uninstall.sh   (and clear the launch option)"
 else
     echo "  Verify any time with:  curl -fsSL $RAW_SELF | sh -s -- --check"
-    echo "  Remove with:           rm -rf $INSTALL_DIR   (and clear the launch option)"
+    echo "  Remove with:           curl -fsSL $RAW_UNINSTALL | sh   (and clear the launch option)"
 fi
