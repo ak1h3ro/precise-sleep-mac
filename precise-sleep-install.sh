@@ -7,6 +7,7 @@ set -eu
 
 REPO="ak1h3ro/precise-sleep-mac"
 RAW_BASE="https://raw.githubusercontent.com/$REPO/main/dist"
+RAW_SELF="https://raw.githubusercontent.com/$REPO/main/precise-sleep-install.sh"
 INSTALL_DIR="$HOME/.precise-sleep"
 DST_APP="$HOME/Library/Application Support/Steam/steamapps/common/Don't Starve Together/dontstarve_steam.app"
 HERE="$(cd "$(dirname "$0")" 2>/dev/null && pwd || echo "")"
@@ -95,5 +96,12 @@ cat <<MSG
 
 MSG
 if command -v pbcopy >/dev/null 2>&1; then printf '%s' "$LAUNCH_OPTION" | pbcopy && ok "copied to clipboard"; fi
-echo "  Then start the game. Verify any time with:  sh precise-sleep-install.sh --check"
-echo "  Remove with:                                sh precise-sleep-uninstall.sh   (and clear the launch option)"
+echo "  Then start the game."
+# The hints must match how this script was invoked: a curl | sh user has no local copy.
+if [ -n "$HERE" ] && [ -f "$HERE/precise-sleep-install.sh" ]; then
+    echo "  Verify any time with:  sh precise-sleep-install.sh --check"
+    echo "  Remove with:           sh precise-sleep-uninstall.sh   (and clear the launch option)"
+else
+    echo "  Verify any time with:  curl -fsSL $RAW_SELF | sh -s -- --check"
+    echo "  Remove with:           rm -rf $INSTALL_DIR   (and clear the launch option)"
+fi
