@@ -56,7 +56,7 @@ Steam replaces `%command%` with the game's own launch command, so what actually 
 
 ### 3. Start the game
 
-Launch it from Steam as usual. Options → Settings → Show FPS should now read 60. To confirm the library is really inside the game process, see Verify below.
+Launch it from Steam as usual and press <kbd>Backspace</kbd> in game: that toggles the engine's debug overlay, which shows the frame rate (the game has no FPS option in its settings screen). It should now read 60. The Steam overlay counter works too. To confirm the library is really inside the game process, see Verify below.
 
 ## Verify
 
