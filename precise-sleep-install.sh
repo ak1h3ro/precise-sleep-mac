@@ -1,8 +1,8 @@
 #!/bin/sh
 # precise-sleep-mac installer
-#   sh install.sh            install prebuilt binaries (from ./dist if run from a checkout, else download)
-#   sh install.sh --build    compile from ./src instead (needs Xcode Command Line Tools)
-#   sh install.sh --check    only report the current state, change nothing
+#   sh precise-sleep-install.sh            install prebuilt binaries (from ./dist if run from a checkout, else download)
+#   sh precise-sleep-install.sh --build    compile from ./src instead (needs Xcode Command Line Tools)
+#   sh precise-sleep-install.sh --check    only report the current state, change nothing
 set -eu
 
 REPO="ak1h3ro/precise-sleep-mac"
@@ -95,5 +95,5 @@ cat <<MSG
 
 MSG
 if command -v pbcopy >/dev/null 2>&1; then printf '%s' "$LAUNCH_OPTION" | pbcopy && ok "copied to clipboard"; fi
-echo "  Then start the game. Verify any time with:  sh install.sh --check"
-echo "  Remove with:                                sh uninstall.sh   (and clear the launch option)"
+echo "  Then start the game. Verify any time with:  sh precise-sleep-install.sh --check"
+echo "  Remove with:                                sh precise-sleep-uninstall.sh   (and clear the launch option)"

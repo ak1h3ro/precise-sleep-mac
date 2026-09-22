@@ -28,14 +28,14 @@ Requirements: macOS on Apple Silicon (also works on Intel Macs), Steam version o
 Open Terminal (⌘ Space, type Terminal) and paste:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/ak1h3ro/precise-sleep-mac/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/ak1h3ro/precise-sleep-mac/main/precise-sleep-install.sh | sh
 ```
 
 Or, from a checkout of this repository:
 
 ```sh
-sh install.sh            # prebuilt binaries from dist/
-sh install.sh --build    # compile from src/ yourself (needs Xcode Command Line Tools)
+sh precise-sleep-install.sh            # prebuilt binaries from dist/
+sh precise-sleep-install.sh --build    # compile from src/ yourself (needs Xcode Command Line Tools)
 ```
 
 The installer puts two files, `precise_run` and `precise_sleep.dylib`, into `~/.precise-sleep/`, clears the download quarantine, signs them locally, runs a self-test (every line should report about 16.667 ms) and checks that the game carries the two entitlements that allow injection. The one thing it cannot do for you is the Steam launch option, so it ends by printing that line and copying it to your clipboard.
@@ -63,13 +63,13 @@ Launch it from Steam as usual. Options → Settings → Show FPS should now read
 From a checkout:
 
 ```sh
-sh install.sh --check
+sh precise-sleep-install.sh --check
 ```
 
 If you installed with the `curl` one-liner and have no checkout:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/ak1h3ro/precise-sleep-mac/main/install.sh | sh -s -- --check
+curl -fsSL https://raw.githubusercontent.com/ak1h3ro/precise-sleep-mac/main/precise-sleep-install.sh | sh -s -- --check
 ```
 
 This reports the state of the installation and the game's entitlements. Run it while the game is open and it also looks up the game's process and tells you whether the library is loaded into it.
@@ -77,7 +77,7 @@ This reports the state of the installation and the game's entitlements. Run it w
 ## Uninstall
 
 ```sh
-sh uninstall.sh
+sh precise-sleep-uninstall.sh
 ```
 
 or just delete `~/.precise-sleep`. Either way, clear the Launch Options field in Steam afterwards. The game is back to stock, since nothing was ever placed inside its folder.
@@ -107,7 +107,7 @@ In game: 57 → 60 fps, and no rubber-banding when hosting fullscreen with caves
 
 ## Limitations and risks
 
-- **It is code injection into the game process.** It works only because Klei signed the game with `com.apple.security.cs.allow-dyld-environment-variables` and `com.apple.security.cs.disable-library-validation`. If a game update drops either, macOS silently ignores the library and the cap comes back. Nothing else breaks; the fix simply stops working, and `install.sh --check` will tell you so.
+- **It is code injection into the game process.** It works only because Klei signed the game with `com.apple.security.cs.allow-dyld-environment-variables` and `com.apple.security.cs.disable-library-validation`. If a game update drops either, macOS silently ignores the library and the cap comes back. Nothing else breaks; the fix simply stops working, and `precise-sleep-install.sh --check` will tell you so.
 - If Klei changes the frame limiter to something other than `nanosleep`, the interposer no longer hits it.
 - If Steam changes how `%command%` is passed, the launcher may fail and the game will appear to "close immediately". Remove the launch option to get the stock behaviour back, then look at `~/.precise-sleep/precise_run.log`.
 - `NOTE_CRITICAL` is in Apple's public headers and used by libdispatch (`DISPATCH_TIMER_STRICT`), but documented only as "best effort". A future macOS could restrict it for background processes.
